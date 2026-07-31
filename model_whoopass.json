@@ -1,0 +1,110 @@
+{
+    "trims": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "reversed": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+    ],
+    "deflections": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+    ],
+    "sources": [
+        "JOYSTICK_1_1",
+        "JOYSTICK_1_1",
+        "JOYSTICK_1_2",
+        "JOYSTICK_0_2",
+        "KEY_39855590",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER"
+    ],
+    "custom_keys": [
+        {
+            "id": "39855590",
+            "name": "ARM_LATCH",
+            "key": 102,
+            "mode": "TOGGLE",
+            "step": 20,
+            "target": null,
+            "state": false,
+            "val": 1000
+        },
+        {
+            "id": "74f6b63f",
+            "name": "VIRTUAL_1",
+            "key": 0,
+            "mode": "NORMAL",
+            "step": 20,
+            "target": null,
+            "state": false,
+            "val": 1500
+        }
+    ],
+    "custom_mixes": [
+        {
+            "id": "a31b8575",
+            "name": "CUSTOM_MIX_1",
+            "inputs": [
+                {
+                    "src": "STATIC_CENTER",
+                    "op": "ADD",
+                    "weight": 100
+                }
+            ],
+            "val": 1500
+        }
+    ]
+}

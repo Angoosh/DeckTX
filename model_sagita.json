@@ -1,0 +1,132 @@
+{
+    "trims": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "reversed": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+    ],
+    "deflections": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+    ],
+    "sources": [
+        "MIX_a31b8575",
+        "MIX_66e6ec15",
+        "JOYSTICK_1_2",
+        "JOYSTICK_0_2",
+        "KEY_39855590",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER",
+        "STATIC_CENTER"
+    ],
+    "custom_keys": [
+        {
+            "id": "39855590",
+            "name": "ARM_LATCH",
+            "key": 102,
+            "mode": "TOGGLE",
+            "step": 20,
+            "target": null,
+            "state": true,
+            "val": 2000
+        },
+        {
+            "id": "74f6b63f",
+            "name": "VIRTUAL_1",
+            "key": 0,
+            "mode": "NORMAL",
+            "step": 20,
+            "target": null,
+            "state": false,
+            "val": 1500
+        }
+    ],
+    "custom_mixes": [
+        {
+            "id": "a31b8575",
+            "name": "DELTA_LEFT",
+            "inputs": [
+                {
+                    "src": "JOYSTICK_1_0",
+                    "op": "SUBTRACT",
+                    "weight": 100
+                },
+                {
+                    "src": "JOYSTICK_1_1",
+                    "op": "ADD",
+                    "weight": 100
+                }
+            ],
+            "val": 1501
+        },
+        {
+            "id": "66e6ec15",
+            "name": "DELTA_RIGHT",
+            "inputs": [
+                {
+                    "src": "JOYSTICK_1_1",
+                    "op": "ADD",
+                    "weight": 100
+                },
+                {
+                    "src": "JOYSTICK_1_0",
+                    "op": "ADD",
+                    "weight": 100
+                }
+            ],
+            "val": 1497
+        }
+    ]
+}
