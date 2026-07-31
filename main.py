@@ -38,7 +38,7 @@ telemetry_data = {
     "rssi": 0, "lq": 0, "snr": 0, "uplink_power": 0, 
     "v_bat": 0.0, "current": 0.0, "capacity": 0,
     "gps_lat": 0.0, "gps_lon": 0.0, "gps_sats": 0, "gps_speed": 0.0,
-    "flight_mode": "UNKNOWN", "packets_received": 0
+    "flight_mode": "UNKNOWN", "packets_received": 0, "last_model_time": 0.0, "last_packet_time": 0.0
 }
 
 channels = [1500] * 16
@@ -214,6 +214,7 @@ def serial_worker():
             except Exception: pass
             if ser.in_waiting > 0:
                 try:
+                    telemetry_data["last_packet_time"] = time.time()
                     header = ser.read(1)
                     if header and header[0] == CRSF_ADDRESS_RADIO_TRANSMITTER:
                         len_byte = ser.read(1)
@@ -224,11 +225,15 @@ def serial_worker():
                                 telemetry_data["packets_received"] += 1
                                 f_type = frame_data[0]
                                 payload = frame_data[1:-1]
+                                if f_type in [CRSF_FRAMETYPE_BATTERY_SENSOR, CRSF_FRAMETYPE_GPS, CRSF_FRAMETYPE_FLIGHT_MODE]:
+                                    telemetry_data["last_model_time"] = time.time()
                                 if f_type == CRSF_FRAMETYPE_LINK_STATISTICS:
                                     telemetry_data["rssi"] = -1 * payload[0]
                                     telemetry_data["lq"] = payload[2]
                                     telemetry_data["snr"] = int(struct.unpack('b', bytes([payload[3]]))[0])
                                     telemetry_data["uplink_power"] = payload[7]
+                                    if telemetry_data["lq"] > 0:
+                                        telemetry_data["last_model_time"] = time.time()
                                 elif f_type == CRSF_FRAMETYPE_BATTERY_SENSOR:
                                     v, curr, caph, capl, percent = struct.unpack(">HHHBB", payload[0:8])
                                     telemetry_data["v_bat"] = v / 10.0
@@ -518,7 +523,27 @@ def main():
         elif current_page == "TELEMETRY":
             y_base = 80 - page_scroll_y
             screen.blit(font.render(f"--- LINK MONITOR RECEIVER (Frames: {telemetry_data['packets_received']}) ---", True, (52, 152, 219)), (40, y_base))
-            txt_color = (46, 204, 113) if telemetry_data['packets_received'] > 0 else (149, 165, 166)
+
+            is_tx_connected = (time.time() - telemetry_data.get("last_packet_time", 0.0)) < 1.5
+            is_model_connected = is_tx_connected and (time.time() - telemetry_data.get("last_model_time", 0.0)) < 2.0
+
+            if not is_tx_connected:
+                status_txt = "NO USB DATA (TX MODULE DISCONNECTED)"
+                status_color = (231, 76, 60) # Red
+            elif not is_model_connected:
+                status_txt = "TX CONNECTED | MODEL POWERED OFF (FAILSAFE)"
+                status_color = (241, 196, 15) # Yellow/Orange
+            else:
+                status_txt = "TX CONNECTED | MODEL RF LINK ACTIVE"
+                status_color = (46, 204, 113) # Green
+
+            y_base += 40
+            pygame.draw.rect(screen, (34, 41, 47), (40, y_base, 540, 32), border_radius=4)
+            pygame.draw.rect(screen, status_color, (40, y_base, 540, 32), width=2, border_radius=4)
+            screen.blit(font.render(status_txt, True, status_color), (55, y_base + 8))
+            y_base += 10
+
+            txt_color = (236, 240, 241) if is_model_connected else (149, 165, 166)
             stats = [
                 f"Link Quality (LQ):   {telemetry_data['lq']}%", 
                 f"Uplink RSSI:         {telemetry_data['rssi']} dBm",
