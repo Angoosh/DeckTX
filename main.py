@@ -10,9 +10,10 @@ import serial
 import cv2  
 import glob
 
-APP_VERSION = "1.0.0"
+APP_VERSION = "1.1.0"
 
 # --- CRSF CONFIG & PROTOCOL PARAMETERS ---
+RATE_HZ = 150
 BAUDRATE = 115200
 SERIAL_PORT = "/dev/ttyUSB0"
 serial_state = False
@@ -259,7 +260,7 @@ def serial_worker():
             ser = None
             time.sleep(0.5)
 
-        sleep_dur = 0.02 - (time.time() - start_time)
+        sleep_dur = (1 / float(RATE_HZ)) - (time.time() - start_time)
         if sleep_dur > 0: time.sleep(sleep_dur)
 
     if ser: 
@@ -354,6 +355,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: running = False
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: running = False
                 
@@ -876,7 +878,7 @@ def main():
             if click_event: active_dropdown = None
 
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(RATE_HZ)
 
     running = False
     pygame.quit()
