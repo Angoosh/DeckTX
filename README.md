@@ -21,4 +21,10 @@ Screenshots are located in screenshots directory
 3. Enjoy
 4. It is recommended to check telemetry tab, if you're really connected to your model
 
+## Example models
+### whoopass
+whoop model example
+### sagita
+delta wing
+
 Attribution: Made with help of Google Gemini
