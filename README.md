@@ -14,6 +14,7 @@ Screenshots are located in screenshots directory
 2. create python virtual environment inside repository with `python3 -m venv ./`
 3. install dependencies from requirements.txt
 4. run
+5. Optional: add it as non steam game on steamdeck, So you can run it directly from gamemode
 
 ## Usage
 1. In model tab, create model
@@ -26,5 +27,15 @@ Screenshots are located in screenshots directory
 whoop model example
 ### sagita
 delta wing
+
+#TODO
+- audio alerts
+- audio welcome
+- splash screen?
+- full crsf telemetry support
+- configurable telemetry tab
+- configuration file
+- serial port manual select + baudrate selection
+- flatpak distribution and possibly publish to flathub
 
 Attribution: Made with help of Google Gemini
